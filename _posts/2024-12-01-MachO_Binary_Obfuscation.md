@@ -29,6 +29,42 @@ Mach-O, short for Mach object file format, is a file format for executables, obj
 
 For a more detailed layout, we can refer to the [MachO file format reference](https://github.com/aidansteele/osx-abi-macho-file-format-reference). Note that this is an outdated version of Apple's documentation, and there have been changes to the file format.
 
+```jsx
++----------------------+
+| Header               | 
++----------------------+
+| Load Commands        | 
+|  - LC_SEGMENT        |
+|  - LC_SYMTAB         | 
+|  - LC_LOAD_DYLIB     |
+|         ....         | 
++----------------------+
+| Segment: __TEXT      | 
+| +-----Sections-----+ |
+| |	__text           | | 
+| | __stubs          | | 
+| | __const          | |
+| |       ....       | |
+| +------------------+ |
++----------------------+ 
+| Segment: __DATA      | 
+| +-----Sections-----+ |
+| |	__data           | | 
+| | __bss            | | 
+| |       ....       | |
+| +------------------+ |
++----------------------+
+| __LINKEDIT           |
+| +------------------+ |
+| | __symbol_table   | |
+| | __string_table   | |
+| | __indirect       | |
+| |       ....       | |
+| | __code_sign      | |
+| +------------------+ |
++----------------------+
+```
+
 ### Things to note when working with MachO
 - Binaries are required to be signed before execution, if not they will encounter a `killed: 9` error.
 - A valid Apple developer certificate is required to sign and `.IPA` file before we can load it onto a phone with a valid certificate from that same developer.
@@ -60,12 +96,12 @@ python3 simple_obfuscator.py -h
 ### stubsexpand
 > How does subs expansion work? In order to break certain disassemblers/decompilers (like ghidra) we can modify the virtual addresses of of the `__stubs` and `__text` sections, this can cause Ghidra to hit an out of bounds error when attempting to analyze, rendering it useless unless patched.
 
-![ghidra screenshot](../assets/images/stubs_ghidra.png)
+![ghidra screenshot](../assets/images/macho/stubs_ghidra.png)
 
 ### dylibinsert
 > Since Objective C binaries load dylibs before the rest of the binary, we are able to insert code here that runs right before the binary is executed, we can expand on this to include a dylib to hinder dynamic analysis.
 
-![dylib insert screenshot](../assets/images/dylib_insert.png)
+![dylib insert screenshot](../assets/images/macho/dylib_insert.png)
 
 
 ### removefunctions
