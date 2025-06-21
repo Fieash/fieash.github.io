@@ -1,0 +1,123 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+.bgimg{
+    position: relative;
+    opacity: 0.9;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 50%;
+}
+
+.bgimgGroup{
+    position: relative;
+    opacity: 0.9;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 90%;
+}
+
+.group{
+    background-image: url("../resource/sb/groupFinal.jpeg");
+}
+
+.wenjiat{
+    background-image: url("../resource/sb/wenjiat.png");
+}
+
+.charmaine{
+    background-image: url("../resource/sb/charmaine.png");
+}
+
+.bryan{
+    background-image: url("../resource/sb/bryan.png");
+}
+
+.jarel{
+    background-image: url("../resource/sb/jarel.png");
+}
+
+.jingsiang{
+    background-image: url("../resource/sb/jingsiang.png");
+}
+
+.dawn{
+    background-image: url("../resource/sb/dawn.png");
+}
+
+.haobin{
+    background-image: url("../resource/sb/haobin.png");
+}
+
+.wenyu{
+    background-image: url("../resource/sb/wenyu.png");
+}
+
+.yuzhang{
+    background-image: url("../resource/sb/yuzhang.png");
+}
+
+
+.description{
+    color: rgb(58, 58, 58);
+    background-color:white;
+    padding:50px 80px;
+    text-align: justify;
+}
+
+.descriptionHeader{
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font: 20px "Lato", sans-serif;
+    color: #111;
+}
+
+.descriptionTextBlack{
+    color: #000;
+    letter-spacing: 3px;
+    font: 15px  arial, sans-serif;
+    width: 40%;
+    font-size: large;
+}
+.descriptionTextWhite{
+    color: #FFF;
+    letter-spacing: 3px;
+    font: 15px  arial, sans-serif;
+    width: 40%;
+}
+
+
+ul{
+    list-style-type: none;
+    overflow: hidden;
+    background-color: #333;
+    min-height: 10%;
+    font-size:150%;
+}
+
+li {
+    float: left;
+    margin: 1%;
+}
+  
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+li a:hover {
+    background-color: #111;
+}
+
+.active {
+    background-color: rgba(0, 255, 0, 0.65);
+}
