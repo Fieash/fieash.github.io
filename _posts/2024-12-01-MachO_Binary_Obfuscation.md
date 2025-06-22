@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "MachO Binary Obfuscation"
-categories: Binary Obfuscation
+categories: Binary_Obfuscation Infosec Tools
 pin: false
 ---
 
