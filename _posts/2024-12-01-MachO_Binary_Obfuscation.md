@@ -41,7 +41,7 @@ For a more detailed layout, we can refer to the [MachO file format reference](ht
 +----------------------+
 | Segment: __TEXT      | 
 | +-----Sections-----+ |
-| |	__text           | | 
+| | __text           | | 
 | | __stubs          | | 
 | | __const          | |
 | |       ....       | |
@@ -49,7 +49,7 @@ For a more detailed layout, we can refer to the [MachO file format reference](ht
 +----------------------+ 
 | Segment: __DATA      | 
 | +-----Sections-----+ |
-| |	__data           | | 
+| | __data           | | 
 | | __bss            | | 
 | |       ....       | |
 | +------------------+ |
