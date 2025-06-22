@@ -230,20 +230,21 @@ Author of LIEF on [iOS syscall hooking for obfuscation](https://www.romainthomas
 
 [IPSW](https://github.com/blacktop/ipsw), contains multiple tools, can be used to dump information from MachO binaries or work with jailbroken iPhones
 
-https://github.com/kam800/MachObfuscator
+[https://github.com/kam800/MachObfuscator](https://github.com/kam800/MachObfuscator)
 
 [O-MVLL a plugin for LLVM](https://github.com/open-obfuscator/o-mvll)
 Very powerful tool which is able to do Control Flow Flattening, Mixed Boolean Arithmetic, Opaque constants, Opaque Fields access and Strings encoding. Done during compile time, requies source code
 
 [Wiki for obfuscator-llvm](https://github.com/obfuscator-llvm/obfuscator/wiki)
 
-https://github.com/Polidea/ios-class-guard
+[https://github.com/Polidea/ios-class-guard](https://github.com/Polidea/ios-class-guard)
 
 [Compile time symbol renaming, requies source code](https://github.com/preemptive/PPiOS-Rename)
 https://github.com/pjebs/Obfuscator-iOS
 
 [Github repo that collates links of many Obfuscators for different formats, written in Chinese.](https://github.com/alphaSeclab/obfuscation-stuff?tab=readme-ov-file#c9bdd398b84c5ddfede6e2b1a78492aa)
-https://www.romainthomas.fr/publication/22-pst-the-poor-mans-obfuscator/
+
+[https://www.romainthomas.fr/publication/22-pst-the-poor-mans-obfuscator/](https://www.romainthomas.fr/publication/22-pst-the-poor-mans-obfuscator/)
 
 
 ### Commercial tools
