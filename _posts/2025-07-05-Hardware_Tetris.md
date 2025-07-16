@@ -14,10 +14,11 @@ For GreyCTF2025, [Terence](https://github.com/hackin7) approached me to write a 
 
 ## The Badge
 ![Terence Presentation](../assets/images/gctfbadge/terence_present.png)
-> hehe second version look like cat with nipples </br>
+> hehe second version look like cat with nipples
 
 [Implementation by Terence](https://hackin7-blog.vercel.app/) 
-Terence intentionally designed the badge around the idea of last year's Greycat, a Maimai badge and a Gameboy style badge! Being provided with the firmware and buttons, I just  had to implement it in CircuitPython!
+
+Terence designed the badge around the idea of last year's Greycat, a Maimai badge and a Gameboy style badge! As he already wrote the firmware in verilog and provided me some sample code to access the buttons, I just  had to implement it in CircuitPython!
 
 ## The Tetris implementation
 ![First Version](../assets/images/gctfbadge/badge_v1.png)
@@ -55,7 +56,7 @@ version  └──────────┘     release       └────�
 ![Sweat Shop](../assets/images/gctfbadge/sweatshop.png)
 
 2 hours into the sweatshop...
-> Wouldn't it be cool if we had a more realistic Tetris on the badge as a Minigame? </br>We could have a leaderboard too! - Leyew
+> Wouldn't it be cool if we had a more realistic Tetris on the badge as a Minigame? We could have a leaderboard too! - Leyew
 
 Massive Credits to [Leyew](https://github.com/itsme-zeix) for helping to implement new cool features too!
 
@@ -75,7 +76,7 @@ Even though we did not end up running it as a minigame, here are some quality of
 	- Come up to the stage style challenge.
 	- For me to have fun writing it!
 	- Not immediately LLM solvable because 
- 	    > "Too much Claude makes you re\*\*\*ded"  - LJK
+> "Too much Claude makes you re\*\*\*ded"  - LJK
 
 Extract the `apps/brick_game.mpy` file and use [mpy-tool.py](https://github.com/micropython/micropython/blob/master/tools/mpy-tool.py) to disassemble the bytecode
 
