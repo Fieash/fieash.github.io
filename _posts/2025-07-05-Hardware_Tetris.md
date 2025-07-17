@@ -104,14 +104,9 @@ We can use this prompt in Gemini 2.5 Pro:
 By reading the code, we can eventually realise that a hidden text `FGEAEADDBB` that when -65, corresponds to numbers corresponding to inputing the original Konami Code (UUDDLRLRBA) sequence. 
 
 We can also see that we are required to achieve a score of more than `9998` in order to get the flag to print:
-
 ![get flag](../assets/images/gctfbadge/print_flag.png)
 
 This would then  trigger a 1000x multiplier, making achieving 10000 points much easier! You can then test the POC on your device to get the placeholder flag `grey{go_do_this_on_stage}`. 
-
-We can then see that 
-
-
 
 Finally, the finalists can come onto the stage to play the challenge on my device which has the actual flag!
 ![stage solve 1](../assets/images/gctfbadge/stage_solve_1_small.png)
@@ -130,6 +125,7 @@ Finally, the finalists can come onto the stage to play the challenge on my devic
 - CircuitPython online repl https://code.circuitpython.org/
 
 ## Some Cool Photos
+![finalists](../assets/images/gctfbadge/finalists.jpg)
 
 
 
