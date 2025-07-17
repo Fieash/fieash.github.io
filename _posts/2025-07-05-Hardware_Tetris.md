@@ -67,8 +67,6 @@ Even though we did not end up running it as a minigame, here are some quality of
 - Added Ghost Piece, to make the much more playable on a small screen!  
 - Hold mechanic, so players dont have to always play no hold mode!
 
-https://github.com/user-attachments/assets/00d919b2-ee43-454b-890c-6e9db158c3fb
-
 {% include embed/youtube.html id='KKv2Dxqic4k' %}
 
 ## The challenge! (and solution)
