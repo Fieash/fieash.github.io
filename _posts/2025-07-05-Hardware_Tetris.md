@@ -67,6 +67,9 @@ Even though we did not end up running it as a minigame, here are some quality of
 - Added Ghost Piece, to make the much more playable on a small screen!  
 - Hold mechanic, so players dont have to always play no hold mode!
 
+https://github.com/user-attachments/assets/00d919b2-ee43-454b-890c-6e9db158c3fb
+
+{% include embed/youtube.html id='KKv2Dxqic4k' %}
 
 ## The challenge! (and solution)
 - Some goals I had for the challenge were:
@@ -117,19 +120,26 @@ Finally, the finalists can come onto the stage to play the challenge on my devic
 > another solve!
 
 ## Possible future updates?
-- Multiplayer to send lines to other players, similar to [tetr.io](https://tetr.io)
-- Compilance to Super Rotation System (SRS), so that wallkicks and T spins can exist, and reliable spinning 
+- Multiplayer to send lines to other players, similar to [Tetr.io](https://tetr.io)
+- Compilance to Super Rotation System (SRS), so that wallkicks and T spins can exist, and reliable spinning. Feel free to PR [here](https://github.com/Fieash/greymecha-tetris) if you are willing to help me implement SRS!
 
 ## Some References
-- source code obfuscator https://pyobfuscate.com/
-- CircuitPython online repl https://code.circuitpython.org/
+- [All the source files](https://github.com/Fieash/greymecha-tetris)
+- [Source code obfuscator](https://pyobfuscate.com/)
+- [CircuitPython online repl](https://code.circuitpython.org/)
 
 ## Some Cool Photos
 ![finalists](../assets/images/gctfbadge/finalists.jpg)
 
+> The finalists!
 
+![pwned](../assets/images/gctfbadge/summit_pwned.png)
 
+> Pwned
 
+![Soyjak point](../assets/images/gctfbadge/soyjak.png)
+
+> :O
 
 
 
