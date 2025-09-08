@@ -2,8 +2,9 @@
 layout: post
 title:  "Decompiling iOS 18.5 Sandbox"
 categories: Infosec Tools
-pin: false
+pin: true
 ---
+
 Fixing Sandblaster on iOS 18.5
 ==============================
 And also iOS 26.0 beta 4!
