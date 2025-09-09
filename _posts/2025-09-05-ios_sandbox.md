@@ -104,6 +104,7 @@ The Sandbox Profile Language (SBPL) is compiled into a binary format for efficie
 3. **Regular expressions**: Compiled regex patterns for path matching
 
 ![Sandbox Overview](../assets/images/ios_sandbox/sbpl_node_breakdown.png)
+
 The binary format uses a compact representation where each operation is encoded as a node in a binary decision tree. Each node contains:
 - Operation type (file-read, network-outbound, etc.)
 - Decision (allow/deny)
@@ -111,6 +112,7 @@ The binary format uses a compact representation where each operation is encoded 
 - Links to child nodes
 
 As for the bundles which are like our `collections.bin` binary of multiple sandbox profiles, the structure is as follows:
+
 ![Sandbox Overview](../assets/images/ios_sandbox/sandbox_bundle_binary.png)
  
 ## Binary Diffing of macOS 14.4 and macOS 15.5
