@@ -43,7 +43,7 @@ The flow works as follows:
 4. The sandbox extension evaluates the call against the compiled profile rules
 5. Access is either granted or denied based on the profile
 
-![[Pasted image 20250817221618.png]]
+![Sandbox Overview](../assets/images/ios_sandbox/sandbox_overview.png)
 
 There are three main types of sandbox profiles:
 - `Platform.sb` : Base profile that apply to all applications e.g. Platform.sb (unique to iOS)
@@ -67,18 +67,18 @@ We can open it in Ghidra or IDA, where we need to grab the:
 3. collections.bin
 #### 1. Getting operations.bin
 we can open the `com.apple.security.sandbox` kext in Ghidra and search for the "default" string.
-![[Pasted image 20250909005202.png|500]]
+![Sandbox Overview](../assets/images/ios_sandbox/operations_bin.png)
 We will be pointed to a long string of operations starting from `default` ending with `xpc-message-send`, we can copy this entire chunk and select `extract and import`, then export the file from the Ghidra Project.
 #### 2. Getting collections.bin
-![[Pasted image 20250909005348.png]]
+![Sandbox Overview](../assets/images/ios_sandbox/strings.png)
 By searching for "failed to init" we can also find where the `collections` sandbox bundle and `platform` sandbox profile are being initialized.
 Following the xref, we can find this lines of code:
-![[Pasted image 20250909005925.png]]
+![Sandbox Overview](../assets/images/ios_sandbox/collections_bin.png)
 Here we know that `FUN_fffffff009e20230` is actually `_collection_init()` which we will analyze later. 
 The builtin collection blob is at the `DAT_fffffff007737a40` address with size `0xb11ae`
 With Ghidra, we can go to this address and right click -> data -> create array -> create an array sized `0xb11ae`, export this as `collection.bin`
 #### 3. Getting platform.bin
-![[Pasted image 20250909010731.png]]
+![Sandbox Overview](../assets/images/ios_sandbox/platform_bin.png)
 At the bottom of the function, we can see these lines of code, where:
 `line 417` indicates the address of `platform.bin`
 `line 418` indicates the `size` of the platform profile binary
@@ -96,12 +96,12 @@ python3 reverse_sandbox.py -r 18 -o operations.txt -d output_dir platform.bin
 ```
 ## Understanding the SBPL Binary
 The Sandbox Profile Language (SBPL) is compiled into a binary format for efficiency. According to the original Sandblaster paper, the binary structure consists of:
- ![[Pasted image 20250831234430.png|500]]
+![Sandbox Overview](../assets/images/ios_sandbox/sandbox_binary.png)
 1. **Header**: Contains metadata about the profile (magic number, counts, etc.)
 2. **Operation nodes**: Binary tree structure representing allow/deny rules
 3. **Regular expressions**: Compiled regex patterns for path matching
 
-![[Pasted image 20250831234757.png| 500]]
+![Sandbox Overview](../assets/images/ios_sandbox/sbpl_node_breakdown.png)
 The binary format uses a compact representation where each operation is encoded as a node in a binary decision tree. Each node contains:
 - Operation type (file-read, network-outbound, etc.)
 - Decision (allow/deny)
@@ -109,7 +109,7 @@ The binary format uses a compact representation where each operation is encoded 
 - Links to child nodes
 
 As for the bundles which are like our `collections.bin` binary of multiple sandbox profiles, the structure is as follows:
-![[Pasted image 20250831234344.png| 500]]
+![Sandbox Overview](../assets/images/ios_sandbox/sandbox_bundle_binary.png)
  
 ## Binary Diffing of macOS 14.4 and macOS 15.5
 To understand what changed in iOS 18, we compared sandbox binaries from macOS 14.4 (corresponding to iOS 17.x) and macOS 15.5 (corresponding to iOS 18.x). This correlation exists because Apple shares the XNU kernel versions between iOS and macOS:
@@ -160,7 +160,7 @@ hexdump -C simple_14.4.bin > 14.4.hex
 hexdump -C simple_15.5.bin > 15.5.hex
 vimdiff 14.4.hex 15.5.hex
 ```
-![[vimdiff_simple.sb.png]]
+![Sandbox Overview](../assets/images/ios_sandbox/vimdiff_simple.sb.png)
 #### "Patching" the diff
 A very crude way of comparing the binaries, and eventually seeing that there isn't much difference between our two `simple.sb`s can be achieved by adding in the missing bytes!
 we can use something like 010 editor to make these changes:
@@ -170,7 +170,7 @@ we can use something like 010 editor to make these changes:
 +add 00 00 00 00 at 0x16C D E F  (originaladdr 0x16A 0x16B) (14.4 was missing 0900 0900)
 +add 00 00       at 0x193 0x194  (originaladdr 0x18D 0x18E) (14.4 was missing 0000)
 ```
-resulting patch: ![[vimdiff_simple.sb_afterpatch.png]]
+resulting patch: ![Sandbox Overview](../assets/images/ios_sandbox/vimdiff_simple.sb_afterpatch.png)
 With this cleaned up version, we can see that the the header structure changed by 2 bytes, appearing after the states_count field. We also noticed the 5th byte changed from 0xBE (190) to 0xC0 (192), which we will see later when analyzing the `_collection_init()` function that it indicates the increased operation count.
 
 ## Analysis of dyld shared cache (DSC)
@@ -180,7 +180,7 @@ The [dyld shared cache](https://theapplewiki.com/wiki/Dev:Dyld_shared_cache) is 
 - on ARM64 macs, we can see that there are `BOTH ARM64 AND X86 DSCs`
 - grab all the dyld_shared_cache files, and put into our working folder
 - open it with IDA pro, select open individual modules, when doing so we see
-![[Pasted image 20250606103543.png|300]]
+![Sandbox Overview](../assets/images/ios_sandbox/dsc_dylibs.png)
 ### libsystem_sandbox.dylib 
 - looks like this is the library that provides the sandbox API, using dlop/dlsym to load `libsandbox.1.dylib`
 - contains functions like `_sandbox_init`, `_sandbox_check` , `_sandbox_register` and unregister, `_sandbox_check`, `_sandbox_check_protected_app_container` which wrap the actual implementations of the sandbox.
@@ -192,7 +192,7 @@ My initial approach to this issue was to look at the `_compile()` function, to u
 
 | Feature                                                                                                                                                                                                                                     | MacOS                                | iOS                                  |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------ |
-| Compilation of sandbox profiles<br><br>"not supported on this platform" on iOS, while the macOS function calls compile()<br><br>we theorize that MacOS actually compiles the sandbox profiles as there are SBPL files stored on the system. | ![[Pasted image 20250625171807.png]] | ![[Pasted image 20250625171642.png]] |
+| Compilation of sandbox profiles<br><br>"not supported on this platform" on iOS, while the macOS function calls compile()<br><br>we theorize that MacOS actually compiles the sandbox profiles as there are SBPL files stored on the system. | ![Sandbox Overview](../assets/images/ios_sandbox/macos_compile.png) | ![Sandbox Overview](../assets/images/ios_sandbox/ios_compile.png) |
 | `_compile` function                                                                                                                                                                                                                         | 1267 line long function<br>          | not present                          |
 
 ## `_compile` analysis
@@ -247,7 +247,7 @@ bash symbolicator/plugins/ida/install.sh
 we can now open ida and use `Alt + f8` or `option + f8`, then select the new symbols json file to symbolicate our kernelcache (or just the sandbox kext)
 
 ### 4. Analyzing the header parsing
-![[mac144v155kerncache.png]]
+![Sandbox Overview](../assets/images/ios_sandbox/mac144v155kerncache.png)
 To make it easier to read, I have already imported the header struct into this binary, selecting the 3rd argument, `a3`  as the Sandbox Header.
 The function begins by:
 - Validating a magic number (0x8000 for bundled profiles)
