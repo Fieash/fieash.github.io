@@ -96,7 +96,9 @@ python3 reverse_sandbox.py -r 18 -o operations.txt -d output_dir platform.bin
 ```
 ## Understanding the SBPL Binary
 The Sandbox Profile Language (SBPL) is compiled into a binary format for efficiency. According to the original Sandblaster paper, the binary structure consists of:
+
 ![Sandbox Overview](../assets/images/ios_sandbox/sandbox_binary.png)
+
 1. **Header**: Contains metadata about the profile (magic number, counts, etc.)
 2. **Operation nodes**: Binary tree structure representing allow/deny rules
 3. **Regular expressions**: Compiled regex patterns for path matching
@@ -190,15 +192,20 @@ ipsw extract --dyld <path_to_.ipsw> # get libsandbox.1.dylib
 ```
 My initial approach to this issue was to look at the `_compile()` function, to understand how the profile binary is generated, however, as we will soon see, its a gigantic function.
 
-| Feature                                                                                                                                                                                                                                     | MacOS                                | iOS                                  |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------ |
-| Compilation of sandbox profiles<br><br>"not supported on this platform" on iOS, while the macOS function calls compile()<br><br>we theorize that MacOS actually compiles the sandbox profiles as there are SBPL files stored on the system. | ![Sandbox Overview](../assets/images/ios_sandbox/macos_compile.png) | ![Sandbox Overview](../assets/images/ios_sandbox/ios_compile.png) |
-| `_compile` function                                                                                                                                                                                                                         | 1267 line long function<br>          | not present                          |
+
+`_compile()` function on MacOS
+![Sandbox Overview](../assets/images/ios_sandbox/macos_compile.png) 
+
+`_compile()` function on iOS
+![Sandbox Overview](../assets/images/ios_sandbox/ios_compile.png) 
+
+As we can see on iOS, the compilation of sandbox profiles is "not supported on this platform", while the macOS function calls `compile()` we theorize that MacOS actually compiles the sandbox profiles during runtime as there are SBPL files stored on the system.
+
 
 ## `_compile` analysis
-compared to the iOS DSC, the MacOS DSC contains a `_sandbox_compile_string()` which calls `_compile()`. By looking at the pseudocode, we can also see that on macOS, in place of line 47 rejecting a compilation, there is actually a call to `_compile()`.
+compared to the iOS DSC, the MacOS DSC contains `_sandbox_compile_string()`. By looking at the pseudocode, we can also see that on macOS, in place of line 47 rejecting a compilation, there is actually a call to `compile()`.
 
-We can also see that it is a gigantic function at 1267 lines, after some time of going through this function with little progress, I thought there might be a better way to approach this...
+Attempting to reverse the understand the compile function, we can see that it is actually a gigantic function at 1267 lines, after some time of going through this function with little progress, I thought there might be a better way to approach this...
 
 ## Reversing `_collection_init()`
 Instead of reversing the compilation process of the profile binary, why not we analyze where it is being interpreted? Using IDA, we can analyze the `_collection_init()` function which is responsible for parsing the bundled collection profiles in iOS.
