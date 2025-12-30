@@ -96,12 +96,12 @@ python3 simple_obfuscator.py -h
 ### stubsexpand
 > How does subs expansion work? In order to break certain disassemblers/decompilers (like ghidra) we can modify the virtual addresses of of the `__stubs` and `__text` sections, this can cause Ghidra to hit an out of bounds error when attempting to analyze, rendering it useless unless patched.
 
-![ghidra screenshot](../assets/images/macho/stubs_ghidra.png)
+![ghidra screenshot]({{ '/assets/images/macho/stubs_ghidra.png' | relative_url }})
 
 ### dylibinsert
 > Since Objective C binaries load dylibs before the rest of the binary, we are able to insert code here that runs right before the binary is executed, we can expand on this to include a dylib to hinder dynamic analysis.
 
-![dylib insert screenshot](../assets/images/macho/dylib_insert.png)
+![dylib insert screenshot]({{ '/assets/images/macho/dylib_insert.png' | relative_url }})
 
 
 ### removefunctions
