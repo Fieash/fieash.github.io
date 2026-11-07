@@ -1,5 +1,14 @@
 #  The contact options.
 
+- type: stonethink-badge
+  icon: ""
+  url: "https://fieash.github.io"
+  noblank: true # my own site, open in same tab
+
+- type: mirkhoff-badge
+  icon: ""
+  url: "https://mirkhoff.com/"
+
 - type: github
   icon: "fab fa-github"
 
