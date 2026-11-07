@@ -1,0 +1,28 @@
+---
+---
+
+@use 'abstracts/variables' with (
+  $theme: '{{ site.theme_mode }}'
+);
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+/* 88x31 badge, pinned above the social icons in the sidebar.
+   Uses a ::before on the socials row so no theme markup is copied.
+   flex-basis:100% makes it claim a full row, pushing the icons below it. */
+#sidebar .sidebar-bottom::before {
+  content: '';
+  flex: 0 0 100%;
+  height: 31px;
+  margin-bottom: 0.85rem;
+  background: url('{{ "/assets/images/other/stonethink_v3_hori.gif" | relative_url }}')
+    left top / 88px 31px no-repeat;
+  image-rendering: pixelated;
+}
