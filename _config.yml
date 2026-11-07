@@ -16,7 +16,7 @@ timezone:
 
 title: "Welcome to Fieash's Blog!" # the main title
 
-tagline: "First, engineers forced the stone to think. Then they tricked it 💻👾"
+tagline: "First, engineers forced the stone to think. Then they tricked it 💻👾<br><img src='/assets/images/other/stonethink_v3_hori.gif' width='88' height='31' alt='stonethink badge' style='image-rendering:pixelated;margin-top:.75rem'>"
 
 description: >- # used by seo meta and the atom feed
   Vulnerability Research, Malware, Infosec
